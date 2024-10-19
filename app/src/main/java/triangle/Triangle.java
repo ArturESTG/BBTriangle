@@ -1,12 +1,20 @@
 package triangle;
 
+/**
+ * Classe Triangle
+ */
 public class Triangle {
 
     private int side1, side2, side3;
+
     private static final String P_EQUILATERAL = "equilateral";
+
     private static final String P_ISOSCELES = "isossceles";
+
     private static final String P_RIGHTANGLED = "right-angled";
+
     private static final String P_SCALENE = "scalene";
+
     private static final String P_IMPOSSIBLE = "impossible";
 
     /**
@@ -43,6 +51,10 @@ public class Triangle {
         return side1 + "," + side2 + "," + side3;
     }
 
+    /**
+     * Gets the perimeter.
+     * @return a comma separated list of side lengths
+     */
     public int getPerimeter() {
         return side1 + side2 + side3;
     }
@@ -53,8 +65,7 @@ public class Triangle {
      */
     public double getArea() {
         if (!isImpossible()) {
-            return Math.sqrt(getPerimeter()
-                    / 2
+            return Math.sqrt(getPerimeter() / 2
                     * (getPerimeter() / 2 - side1)
                     * (getPerimeter() / 2 - side2)
                     * (getPerimeter() / 2 - side3));
@@ -76,18 +87,17 @@ public class Triangle {
     public String classify() {
         if (isImpossible()) {
             return P_IMPOSSIBLE;
-        }
-        if (side1 == side2) {
-            if (side2 == side3) {
-                return P_EQUILATERAL;
-            } else {
-                return P_ISOSCELES;
-            }
-        }
-        if (isRightAngled()) {
+        } else if(isEquilateral()) {
+            return P_EQUILATERAL;
+        } else if (isIsosceles()) {
+            return P_ISOSCELES;
+        } else if (isRightAngled()) {
             return P_RIGHTANGLED;
+        } else if(isScalene()) {
+            return P_SCALENE;
         }
-        return P_SCALENE;
+
+        return " ";
     }
 
     /**
@@ -103,12 +113,15 @@ public class Triangle {
         return false;
     }
 
+    /*
+    * Este codigo está incompleto
+    * */
     /**
      * Checks if the triangle is equilateral.
      * @return true if all three sides have equal length.
      */
     public boolean isEquilateral() {
-        if (side1 == side3) {
+        if (side1 == side3 && side2 == side3) {
             return true;
         }
         return false;
@@ -141,6 +154,7 @@ public class Triangle {
         if (side1 != side2 && side1 != side3 && side2 != side3) {
             return true;
         }
+
         return false;
     }
 
@@ -153,8 +167,11 @@ public class Triangle {
         if (side1 <= 0 || side2 <= 0 || side3 <= 0) {
             return true;
         }
+
+        if ((side1 > (side2 + side3)) || (side2 > (side1 + side3)) || (side3 > (side1 + side2))) {
+            return true;
+        }
+
         return false;
     }
-
 }
-
