@@ -56,7 +56,11 @@ public class Triangle {
      * @return a comma separated list of side lengths
      */
     public int getPerimeter() {
-        return side1 + side2 + side3;
+        if (!isImpossible()) {
+            return side1 + side2 + side3;
+        }
+
+        return -1;
     }
 
     /**
@@ -65,10 +69,8 @@ public class Triangle {
      */
     public double getArea() {
         if (!isImpossible()) {
-            return Math.sqrt(getPerimeter() / 2
-                    * (getPerimeter() / 2 - side1)
-                    * (getPerimeter() / 2 - side2)
-                    * (getPerimeter() / 2 - side3));
+            int semiPerimeter = getPerimeter() / 2;
+            return Math.sqrt(semiPerimeter * (semiPerimeter - side1) * (semiPerimeter - side2) * (semiPerimeter - side3));
         }
         return -1;
     }

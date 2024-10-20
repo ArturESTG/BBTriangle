@@ -12,12 +12,21 @@ public class TestTriangule {
 
         triangle = new Triangle(12, 2, -3);
         assertEquals(excepted, triangle.classify(), "Como -3 é negativo o triangulo é impossivel");
+
         triangle.setSideLengths(12, -2, -3);
         assertEquals(excepted, triangle.classify(), "Como dois dos lados são negativos o triangulo é impossivel");
+
         triangle.setSideLengths(-12, -2, -3);
         assertEquals(excepted, triangle.classify(), "Como todos os lados são negativos o triangulo é impossivel");
+
         triangle.setSideLengths(12, 2, 3);
         assertEquals(excepted, triangle.classify(), "Como a soma do lado 1 com o 2 é maior que o 3º lado do  triangulo é impossivel");
+
+        triangle.setSideLengths(0, 0, 0);
+        assertEquals(excepted, triangle.classify(), "Como o valor de todos os lados é menor que 1 vai dar false");
+
+        triangle.setSideLengths(1, 2, 0);
+        assertEquals(excepted, triangle.classify(), "Como o triangulo possui pelo menos 1 lado menor ou igual a 0 via dar false");
     }
 
     @Test
@@ -68,5 +77,40 @@ public class TestTriangule {
         String excepted = "scalene";
         triangle = new Triangle(5, 3, 8);
         assertEquals(excepted, triangle.classify(), "O triangulo vai dar escaleno pois a soma do C^2 ≠ h^2 + h^2, mas é escaleno por causa da conta para ser escaleno");
+    }
+
+    //Outros testes
+    @Test
+    public void testPerimter() {
+        triangle = new Triangle(5, 3, 8);
+        int excepted = 16;
+        assertEquals(excepted, triangle.getPerimeter(), "O perimtero vai dar 16, porque 5 + 3 + 8 = 16");
+
+        //Validar se aqui também é preciso um if
+        triangle = new Triangle(0, 0, 0);
+        excepted = -1;
+        assertEquals(excepted, triangle.getPerimeter(), "O perimtero vai dar -1, porque o triangulo é impossível");
+    }
+
+    @Test
+    public void testGetAreaTriangule() {
+        triangle = new Triangle(7, 10, 5);
+        double excepted = 16.24807680927192;
+        assertEquals(excepted, triangle.getArea(), "O perimtero vai dar 16.25");
+
+        triangle = new Triangle(0, 0, 0);
+        excepted = -1;
+        assertEquals(excepted, triangle.getArea(), "A area vai dar -1, porque o triangulo é impossível");
+    }
+
+    @Test
+    public void testGetSideTrianguleAndGetSetSideTriangle() {
+        triangle = new Triangle(7, 10, 5);
+        String excepted = "7,10,5";
+        assertEquals(excepted, triangle.getSideLengths(), "A string retornada vai ser: 7,10,5");
+
+        triangle.setSideLengths(10, 5, 7);
+        excepted = "10,5,7";
+        assertEquals(excepted, triangle.getSideLengths(), "A string retornada vai ser: 10,5,7");
     }
 }
